@@ -8,6 +8,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"sync"
 
 	"golang.org/x/net/context"
 )
@@ -20,12 +21,15 @@ const (
 	endpointAuth = "api/v1.1/authenticate"
 )
 
-// Client manages communication with Lingvo API
+// Client manages communication with Lingvo API. It is safe to use it from
+// multiple goroutines.
 type Client struct {
 	cfg config
 
 	apiKey string
-	token  string
+
+	mu    sync.RWMutex // protects token
+	token string
 }
 
 // NewClient returns a new Lingvo API client customized using the provided
@@ -82,9 +86,11 @@ func (c *Client) Do(ctx context.Context, req *http.Request, v interface{}) error
 	return doWithRetry(ctx, func() error {
 		// do this on every iteration, because new token may be
 		// received after retry
+		c.mu.RLock()
 		if c.token != "" {
 			req.Header.Set("Authorization", "Bearer: "+c.token)
 		}
+		c.mu.RUnlock()
 
 		return c.do(ctx, req, v)
 	})
@@ -151,7 +157,9 @@ func (c *Client) checkResponse(r *http.Response) error {
 				if err = c.do(ctx, req, &token); err != nil {
 					return err
 				}
+				c.mu.Lock()
 				c.token = token.String()
+				c.mu.Unlock()
 				return nil
 			},
 		}
