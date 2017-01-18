@@ -138,6 +138,10 @@ func (c *Client) checkResponse(r *http.Response) error {
 		// TODO: While undocumented, the token is actually base64
 		// encoded JWT.  Consider looking at its expiration time instead
 		// of relying purely on 401.
+		// TODO: Consider updating token in a dedicated goroutine, so
+		// that multiple simultaneous StatusUnauthorized responses from
+		// several goroutines don't trigger multiple token refresh
+		// requests.
 		return &UnauthorizedError{
 			Response:    r,
 			Message:     msg,
