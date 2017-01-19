@@ -180,7 +180,7 @@ func doWithRetry(ctx context.Context, fn func() error) error {
 	var attempts int
 
 	for {
-		attempts += 1
+		attempts++
 		err = fn()
 		rerr, ok := err.(RetryableError)
 		if !ok || attempts >= rerr.MaxAttempts() {
