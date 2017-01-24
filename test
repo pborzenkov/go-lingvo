@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -e
+
+LINTABLE=$(go list -f '{{ join .GoFiles "\n" }}' ./... | grep -v "_string.go")
+
+go test -v -i -race ./...
+go test -v -race ./...
+go vet ./...
+golint $LINTABLE
