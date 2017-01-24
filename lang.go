@@ -1,10 +1,20 @@
 //go:generate stringer -type=Lang
 package lingvo
 
-// Lang is a language to translate to/from
+import (
+	"errors"
+	"strings"
+)
+
+// Possible error values
+var (
+	ErrUnsupportedLanguage = errors.New("lingvo: unsupported language")
+)
+
+// Lang is a language to translate to/from.
 type Lang int
 
-// List of supported languages
+// Language codes for all supported languages.
 const (
 	Ch Lang = 1028
 	Da Lang = 1030
@@ -21,3 +31,23 @@ const (
 	Tt Lang = 1092
 	La Lang = 1142
 )
+
+// Languages is a list of all supported languages.
+var Languages = []Lang{Ch, Da, De, El, En, Es, Fr, It, Pl, Ru, Uk, Kk, Tt, La}
+
+var abbr2lang = make(map[string]Lang)
+
+func init() {
+	for _, l := range Languages {
+		abbr2lang[strings.ToLower(l.String())] = l
+	}
+}
+
+// LangByAbbr returns language identified by abbr abbreviation.
+func LangByAbbr(abbr string) (Lang, error) {
+	l, ok := abbr2lang[strings.ToLower(abbr)]
+	if !ok {
+		return 0, ErrUnsupportedLanguage
+	}
+	return l, nil
+}
