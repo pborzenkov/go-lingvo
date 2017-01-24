@@ -3,6 +3,7 @@ package lingvo
 
 import (
 	"errors"
+	"strconv"
 	"strings"
 )
 
@@ -31,6 +32,11 @@ const (
 	Tt Lang = 1092
 	La Lang = 1142
 )
+
+// code returns string representation of l language code
+func (l Lang) code() string {
+	return strconv.Itoa(int(l))
+}
 
 // Languages is a list of all supported languages.
 var Languages = []Lang{Ch, Da, De, El, En, Es, Fr, It, Pl, Ru, Uk, Kk, Tt, La}
