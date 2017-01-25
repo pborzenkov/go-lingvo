@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"io"
 	"os"
 	"sort"
 	"text/tabwriter"
@@ -40,6 +41,10 @@ func exit(usage func(), msg interface{}) {
 		usage()
 	}
 	os.Exit(1)
+}
+
+func printHeader(w io.Writer) {
+	fmt.Printf("Translated by Lingvo (https://developers.lingvolive.com)\n\n")
 }
 
 func main() {
