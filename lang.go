@@ -1,4 +1,5 @@
 //go:generate stringer -type=Lang
+
 package lingvo
 
 import (
