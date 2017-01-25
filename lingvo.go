@@ -48,6 +48,28 @@ func NewClient(apiKey string, opts ...Option) *Client {
 	return cl
 }
 
+// option is a single paramter for URL query
+type option struct {
+	name  string
+	value string
+}
+
+// addOptions adds the parameters from opts as URL query paramters to s.
+func addOptions(s string, opts ...option) (string, error) {
+	u, err := url.Parse(s)
+	if err != nil {
+		return s, err
+	}
+
+	vals := make(url.Values)
+	for _, opt := range opts {
+		vals.Add(opt.name, opt.value)
+	}
+	u.RawQuery = vals.Encode()
+
+	return u.String(), nil
+}
+
 // NewRequest creates an API request. A relative URL can be provided in urlStr,
 // in which case it is resolved relative to the BaseURL of the Client. body is
 // currently ignored.
