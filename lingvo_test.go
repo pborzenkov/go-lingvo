@@ -34,6 +34,26 @@ func teardown() {
 	server.Close()
 }
 
+func testMethod(t *testing.T, r *http.Request, want string) {
+	if got := r.Method; got != want {
+		t.Errorf("unexpected request method, want = %q, got = %q", want, got)
+	}
+}
+
+type values map[string]string
+
+func testFormValues(t *testing.T, r *http.Request, values values) {
+	want := url.Values{}
+	for k, v := range values {
+		want.Add(k, v)
+	}
+
+	r.ParseForm()
+	if got := r.Form; !reflect.DeepEqual(got, want) {
+		t.Errorf("unexpected request parameters, want = %q, got = %q", want, got)
+	}
+}
+
 func TestNewClient(t *testing.T) {
 	c := NewClient("")
 
@@ -70,9 +90,8 @@ func TestDo(t *testing.T) {
 	}
 
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		if m := "GET"; m != r.Method {
-			t.Errorf("Request method = %v, want %v", r.Method, m)
-		}
+		testMethod(t, r, "GET")
+
 		fmt.Fprint(w, `{"A":"a","B":"b"}`)
 	})
 
