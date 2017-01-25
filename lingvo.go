@@ -88,7 +88,7 @@ func (c *Client) Do(ctx context.Context, req *http.Request, v interface{}) error
 		// received after retry
 		c.mu.RLock()
 		if c.token != "" {
-			req.Header.Set("Authorization", "Bearer: "+c.token)
+			req.Header.Set("Authorization", "Bearer "+c.token)
 		}
 		c.mu.RUnlock()
 
@@ -153,7 +153,7 @@ func (c *Client) checkResponse(r *http.Response) error {
 					return fmt.Errorf("API key is missing")
 				}
 				req, err := c.newRequest("POST", endpointAuth, nil, map[string]string{
-					"Authorization": "Basic: " + c.apiKey,
+					"Authorization": "Basic " + c.apiKey,
 				})
 				if err != nil {
 					return err

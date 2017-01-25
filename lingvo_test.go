@@ -118,7 +118,7 @@ func TestDo_authorization(t *testing.T) {
 	token := "token"
 	authorized := false
 	mux.HandleFunc("/"+endpointAuth, func(w http.ResponseWriter, r *http.Request) {
-		if got, want := r.Header.Get("Authorization"), "Basic: "+apiKey; got != want {
+		if got, want := r.Header.Get("Authorization"), "Basic "+apiKey; got != want {
 			t.Errorf("Authorization header = %v, want %v", got, want)
 			http.Error(w, "Unauthorized", http.StatusUnauthorized)
 			return
@@ -127,7 +127,7 @@ func TestDo_authorization(t *testing.T) {
 		authorized = true
 	})
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		if got, want := r.Header.Get("Authorization"), "Bearer: "+token; got != want {
+		if got, want := r.Header.Get("Authorization"), "Bearer "+token; got != want {
 			http.Error(w, "Unauthorized", http.StatusUnauthorized)
 			if authorized {
 				t.Errorf("Authorization header = %v, want %v", got, want)
