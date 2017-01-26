@@ -1,12 +1,11 @@
 package lingvo
 
 import (
+	"context"
 	"fmt"
 	"net/http"
 	"reflect"
 	"testing"
-
-	"golang.org/x/net/context"
 )
 
 func TestSuggest(t *testing.T) {

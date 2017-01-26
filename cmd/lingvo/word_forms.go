@@ -1,12 +1,11 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"fmt"
 	"os"
 	"text/tabwriter"
-
-	"golang.org/x/net/context"
 
 	"github.com/pborzenkov/go-lingvo"
 )

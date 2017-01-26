@@ -1,6 +1,7 @@
 package lingvo
 
 import (
+	"context"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -9,8 +10,6 @@ import (
 	"reflect"
 	"strings"
 	"testing"
-
-	"golang.org/x/net/context"
 )
 
 var (

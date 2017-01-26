@@ -2,6 +2,7 @@ package lingvo
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -9,8 +10,6 @@ import (
 	"net/http"
 	"net/url"
 	"sync"
-
-	"golang.org/x/net/context"
 )
 
 const (
