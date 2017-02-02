@@ -3,14 +3,8 @@
 package lingvo
 
 import (
-	"errors"
 	"strconv"
 	"strings"
-)
-
-// Possible error values
-var (
-	ErrUnsupportedLanguage = errors.New("lingvo: unsupported language")
 )
 
 // Lang is a language to translate to/from.
