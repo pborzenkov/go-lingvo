@@ -22,6 +22,8 @@ const (
 
 // Minicard contains a minicard for a single word.
 type Minicard struct {
+	client *Client `json:-`
+
 	SourceLanguage Lang     `json:"SourceLanguage"`
 	TargetLanguage Lang     `json:"TargetLanguage"`
 	Heading        string   `json:"Heading"`
@@ -60,6 +62,16 @@ func (c *Client) GetMinicard(ctx context.Context, word string, from, to Lang) (*
 	if err != nil {
 		return nil, err
 	}
+	minicard.client = c
 
 	return minicard, nil
+}
+
+// GetSound returns a wav encoded sound for a word represented by the minicard.
+func (m *Minicard) GetSound(ctx context.Context) ([]byte, error) {
+	if m.Translation.Sound == "" {
+		return nil, ErrNoSound
+	}
+
+	return m.client.GetSound(ctx, m.Translation.Dictionary, m.Translation.Sound)
 }
