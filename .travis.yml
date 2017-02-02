@@ -7,9 +7,8 @@ go:
   - 1.8rc3
   - tip
 
-install:
- - go get -v -t github.com/pborzenkov/go-lingvo
- - go get github.com/golang/lint/golint
+before_install:
+ - go get -v github.com/golang/lint/golint
 
 script:
  - ./test
