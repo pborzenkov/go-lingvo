@@ -22,7 +22,7 @@ const (
 
 // Minicard contains a minicard for a single word.
 type Minicard struct {
-	client *Client `json:-`
+	client *Client
 
 	SourceLanguage Lang     `json:"SourceLanguage"`
 	TargetLanguage Lang     `json:"TargetLanguage"`
