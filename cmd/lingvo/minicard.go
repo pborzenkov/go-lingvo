@@ -4,6 +4,7 @@ import (
 	"context"
 	"flag"
 	"fmt"
+	"io/ioutil"
 	"os"
 	"strings"
 
@@ -30,6 +31,7 @@ func getMinicard(args []string) {
 	var to langFlag = langFlag(lingvo.Ru)
 	fs.Var(&from, "from", "source language")
 	fs.Var(&to, "to", "target language")
+	sound := fs.String("sound", "", "store word's sound (if available) into the file")
 	fs.Parse(args)
 
 	if fs.NArg() != 1 {
@@ -47,4 +49,23 @@ func getMinicard(args []string) {
 	fmt.Printf("%s\n", m.Translation.Heading)
 	fmt.Printf("%s\n", m.Translation.Translation)
 	fmt.Printf("\nSee also: %s\n", strings.Join(m.SeeAlso, ","))
+
+	if *sound == "" {
+		return
+	}
+
+	if m.Translation.Sound == "" {
+		fmt.Printf("\nNo sound available\n")
+		return
+	}
+
+	snd, err := m.GetSound(context.Background())
+	if err != nil {
+		exit(nil, err)
+	}
+	err = ioutil.WriteFile(*sound, snd, 0644)
+	if err != nil {
+		exit(nil, err)
+	}
+	fmt.Printf("\nStored sound for '%s' as %s\n", fs.Arg(0), *sound)
 }
