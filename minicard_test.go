@@ -12,6 +12,9 @@ func TestGetMinicard(t *testing.T) {
 	setup()
 	defer teardown()
 
+	// To make reflect.DeepEqual happy
+	testMinicard.client = client
+
 	mux.HandleFunc("/"+endpointMinicard, func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
 		testFormValues(t, r, values{
