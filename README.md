@@ -1,6 +1,6 @@
 go-lingvo - Go package for Lingvo API
 ===================================================
-[![GoDoc](https://godoc.org/github.com/pborzenkov/go-lingvo?status.svg)](https://godoc.org/github.com/pborzenkov/go-lingvo)
+[![GoDoc](https://godoc.org/github.com/pborzenkov/go-lingvo?status.svg)](https://godoc.org/github.com/pborzenkov/go-lingvo) [![Build Status](https://travis-ci.org/pborzenkov/go-lingvo.svg?branch=master)](https://travis-ci.org/pborzenkov/go-lingvo)
 Overview
 --------
 
