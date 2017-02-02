@@ -1,7 +1,11 @@
 language: go
 
+os:
+  - linux
+  - osx
+
 go:
-  - 1.8
+  - 1.8rc3
   - tip
 
 install:
