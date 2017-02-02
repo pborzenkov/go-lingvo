@@ -1,0 +1,15 @@
+language: go
+
+go:
+  - 1.8
+  - tip
+
+install:
+ - go get -v -t github.com/pborzenkov/go-lingvo
+ - go get github.com/golang/lint/golint
+
+script:
+ - ./test
+
+notifications:
+  email: false
