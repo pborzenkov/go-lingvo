@@ -1,3 +1,15 @@
+go-lingvo - Go package for Lingvo API
+===================================================
+
+Overview
+--------
+
+The package provides Go bindings to [Lingvo API](https://developers.lingvolive.com) along with a sample command line tool.
+
+The package's public API is not yet stable and may/will change in the future.
+
+License
+-------
 Copyright (c) 2017, Pavel Borzenkov <pavel.borzenkov@gmail.com>
 All rights reserved.
 
