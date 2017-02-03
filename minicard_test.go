@@ -6,6 +6,8 @@ import (
 	"net/http"
 	"reflect"
 	"testing"
+
+	"github.com/kylelemons/godebug/pretty"
 )
 
 func TestGetMinicard(t *testing.T) {
@@ -32,7 +34,9 @@ func TestGetMinicard(t *testing.T) {
 	}
 
 	if got, want := s, testMinicard; !reflect.DeepEqual(got, want) {
-		t.Errorf("unexpected result, want = %+v, got = %+v", want, got)
+		diff := pretty.Compare(got, want)
+
+		t.Errorf("unexpected result, diff = %s", diff)
 	}
 }
 
