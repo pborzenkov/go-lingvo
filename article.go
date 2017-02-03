@@ -81,6 +81,8 @@ type Article struct {
 // ArticleNode is a single entry in an article
 type ArticleNode struct {
 	Node       NodeType       `json:"Node"`
+	FullText   string         `json:"FullText"`
+	FileName   string         `json:"FileName"`
 	Text       string         `json:"Text"`
 	Dictionary string         `json:"Dictionary"`
 	ID         string         `json:"ArticleId"`
