@@ -18,9 +18,9 @@ func init() {
 }
 
 func getArticle(args []string) {
-	fs := flag.NewFlagSet("get-minicard", flag.ExitOnError)
+	fs := flag.NewFlagSet("get-article", flag.ExitOnError)
 	fs.Usage = func() {
-		fmt.Fprintln(os.Stderr, "Usage: lingvo get-minicard [flags] <word>")
+		fmt.Fprintln(os.Stderr, "Usage: lingvo get-article [flags] <word>")
 		fmt.Fprintln(os.Stderr, "")
 		fs.PrintDefaults()
 	}
