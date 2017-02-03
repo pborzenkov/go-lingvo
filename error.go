@@ -8,4 +8,5 @@ import (
 var (
 	ErrUnsupportedLanguage = errors.New("lingvo: unsupported language")
 	ErrNoSound             = errors.New("lingvo: no sound")
+	ErrInvalidNodeType     = errors.New("lingvo: invalid node type")
 )

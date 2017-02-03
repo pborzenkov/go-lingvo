@@ -1,6 +1,6 @@
-//go:generate stringer -type=Lang
-
 package lingvo
+
+//go:generate stringer -type=Lang
 
 import (
 	"strconv"
