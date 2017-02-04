@@ -28,6 +28,16 @@ const (
 	La Lang = 1142
 )
 
+// Set implements flag.Value interface
+func (l *Lang) Set(str string) error {
+	val, err := LangByAbbrev(str)
+	if err != nil {
+		return err
+	}
+	*l = val
+	return nil
+}
+
 // code returns string representation of l language code
 func (l Lang) code() string {
 	return strconv.Itoa(int(l))
@@ -44,8 +54,8 @@ func init() {
 	}
 }
 
-// LangByAbbr returns language identified by abbr abbreviation.
-func LangByAbbr(abbr string) (Lang, error) {
+// LangByAbbrev returns language identified by abbr abbreviation.
+func LangByAbbrev(abbr string) (Lang, error) {
 	l, ok := abbr2lang[strings.ToLower(abbr)]
 	if !ok {
 		return 0, ErrUnsupportedLanguage
