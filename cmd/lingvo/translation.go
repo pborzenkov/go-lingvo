@@ -25,8 +25,8 @@ func translate(args []string) {
 		fs.PrintDefaults()
 	}
 
-	var from langFlag = langFlag(lingvo.En)
-	var to langFlag = langFlag(lingvo.Ru)
+	from := lingvo.En
+	to := lingvo.Ru
 	fs.Var(&from, "from", "source language")
 	fs.Var(&to, "to", "target language")
 	isCaseSensitive := fs.Bool("case", false, "case sensitive search")
@@ -38,7 +38,7 @@ func translate(args []string) {
 
 	c := lingvo.NewClient(os.Getenv("LINGVO_API_KEY"))
 
-	as, err := c.Translate(context.Background(), fs.Arg(0), lingvo.Lang(from), lingvo.Lang(to), *isCaseSensitive)
+	as, err := c.Translate(context.Background(), fs.Arg(0), from, to, *isCaseSensitive)
 	if err != nil {
 		exit(nil, err)
 	}

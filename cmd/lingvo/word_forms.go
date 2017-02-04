@@ -26,7 +26,7 @@ func getWordForms(args []string) {
 		fs.PrintDefaults()
 	}
 
-	var lang langFlag = langFlag(lingvo.En)
+	lang := lingvo.En
 	fs.Var(&lang, "lang", "language of the requested word")
 	fs.Parse(args)
 
@@ -36,7 +36,7 @@ func getWordForms(args []string) {
 
 	c := lingvo.NewClient(os.Getenv("LINGVO_API_KEY"))
 
-	wf, err := c.GetWordForms(context.Background(), fs.Arg(0), lingvo.Lang(lang))
+	wf, err := c.GetWordForms(context.Background(), fs.Arg(0), lang)
 	if err != nil {
 		exit(nil, err)
 	}

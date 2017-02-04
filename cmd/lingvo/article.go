@@ -25,8 +25,8 @@ func getArticle(args []string) {
 		fs.PrintDefaults()
 	}
 
-	var from langFlag = langFlag(lingvo.En)
-	var to langFlag = langFlag(lingvo.Ru)
+	from := lingvo.En
+	to := lingvo.Ru
 	fs.Var(&from, "from", "source language")
 	fs.Var(&to, "to", "target language")
 	dict := fs.String("dict", "Universal", "dictionary to get the article from")
@@ -38,7 +38,7 @@ func getArticle(args []string) {
 
 	c := lingvo.NewClient(os.Getenv("LINGVO_API_KEY"))
 
-	a, err := c.GetArticle(context.Background(), fs.Arg(0), *dict, lingvo.Lang(from), lingvo.Lang(to))
+	a, err := c.GetArticle(context.Background(), fs.Arg(0), *dict, from, to)
 	if err != nil {
 		exit(nil, err)
 	}

@@ -25,8 +25,8 @@ func suggest(args []string) {
 		fs.PrintDefaults()
 	}
 
-	var from langFlag = langFlag(lingvo.En)
-	var to langFlag = langFlag(lingvo.Ru)
+	from := lingvo.En
+	to := lingvo.Ru
 	fs.Var(&from, "from", "source language")
 	fs.Var(&to, "to", "target language")
 	fs.Parse(args)
@@ -37,7 +37,7 @@ func suggest(args []string) {
 
 	c := lingvo.NewClient(os.Getenv("LINGVO_API_KEY"))
 
-	s, err := c.Suggest(context.Background(), fs.Arg(0), lingvo.Lang(from), lingvo.Lang(to))
+	s, err := c.Suggest(context.Background(), fs.Arg(0), from, to)
 	if err != nil {
 		exit(nil, err)
 	}

@@ -7,25 +7,7 @@ import (
 	"os"
 	"sort"
 	"text/tabwriter"
-
-	"github.com/pborzenkov/go-lingvo"
 )
-
-type langFlag lingvo.Lang
-
-func (l *langFlag) String() string {
-	return lingvo.Lang(*l).String()
-}
-
-func (l *langFlag) Set(val string) error {
-	lang, err := lingvo.LangByAbbr(val)
-	if err != nil {
-		return err
-	}
-
-	*l = langFlag(lang)
-	return nil
-}
 
 type command struct {
 	name string
