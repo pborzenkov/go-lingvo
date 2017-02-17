@@ -4,7 +4,7 @@ os:
   - linux
 
 go:
-  - 1.8rc3
+  - 1.8.x
   - tip
 
 before_install:
